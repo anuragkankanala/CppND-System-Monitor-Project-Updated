@@ -3,6 +3,7 @@
 
 #include <string>
 #include <unistd.h>
+#include "linux_parser.h"
 /*
 Basic class for Process representation
 It contains relevant attributes as shown below
