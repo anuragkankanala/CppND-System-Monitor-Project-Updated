@@ -39,7 +39,10 @@ float Process::CpuUtilization() const
 
 		long time_elapsed_process_start = system_uptime_seconds - process_uptime_seconds;
 
-		cpu_usage = ((100 * process_active_seconds)/(time_elapsed_process_start));
+		if(time_elapsed_process_start != 0)
+		{
+			cpu_usage = ((process_active_seconds)/(time_elapsed_process_start));
+		}
 
 	}
 
