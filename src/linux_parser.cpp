@@ -124,7 +124,6 @@ long LinuxParser::ActiveJiffies(int pid)
   string line;
   string jiff;
 
-  int counter = 1;
   std::ifstream filestream(kProcDirectory + to_string(pid) + kStatFilename);
   if(filestream.is_open())
   {
@@ -133,10 +132,10 @@ long LinuxParser::ActiveJiffies(int pid)
     
     for(int i=1; i<=17; i++)
     {
-      linestream >> value;
+      linestream >> jiff;
       if(i >=14 && i<=17)
       {
-        active_jiffies += stol(value);
+        active_jiffies += stol(jiff);
       }
     }
   }
@@ -212,7 +211,7 @@ vector<string> LinuxParser::CpuUtilization()
 
   cpu_utilization.push_back(user);
   cpu_utilization.push_back(nice);
-  cpu_utilization.push_back(ssystem);
+  cpu_utilization.push_back(system);
   cpu_utilization.push_back(idle);
   cpu_utilization.push_back(iowait);
   cpu_utilization.push_back(irq);
@@ -365,7 +364,6 @@ long int LinuxParser::UpTime(int pid)
   string line;
   string jiff;
 
-  int counter = 1;
   std::ifstream filestream(kProcDirectory + to_string(pid) + kStatFilename);
   if(filestream.is_open())
   {
