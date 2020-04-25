@@ -19,7 +19,7 @@ const std::string kOSPath{"/etc/os-release"};
 const std::string kPasswordPath{"/etc/passwd"};
 
 const std::string kMemTotal{"MemTotal:"};
-const std::string kMemAvailable{"MemAvailable:"};
+const std::string kMemFree{"MemFree:"};
 const std::string kTotalProcesses{"processes"};
 const std::string kProcessesRunning{"procs_running"};
 const std::string kProcessMemoryUsed{"VmSize:"};

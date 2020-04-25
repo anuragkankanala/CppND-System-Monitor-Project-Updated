@@ -77,10 +77,10 @@ float LinuxParser::MemoryUtilization()
   std::ifstream stream(kProcDirectory + kMeminfoFilename);
   if(stream.is_open()){
     while(std::getline(stream, line)){
-    std::istringstream linestream(line);
+      std::istringstream linestream(line);
       linestream >> key >> value;
       if(key == kMemTotal){MemTotal = stof(value);}
-      else if (key == kMemAvailable){MemFree = stof(value);}
+      else if (key == kMemFree){MemFree = stof(value);}
       else continue;
       stream.close();
       
