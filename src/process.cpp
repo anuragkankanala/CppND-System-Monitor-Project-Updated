@@ -101,5 +101,5 @@ long int Process::UpTime() {
 // REMOVE: [[maybe_unused]] once you define the function
 bool Process::operator<(Process const& a) const 
 {
-	return (CpuUtilization() < a.CpuUtilization());
+	return (Pid() < a.Pid());
 }
