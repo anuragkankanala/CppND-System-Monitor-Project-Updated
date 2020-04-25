@@ -22,7 +22,7 @@ Process::Process(int pid)
 int Process::Pid() const { return pid_; }
 
 // TODO: Return this process's CPU utilization
-float Process::CpuUtilization() 
+float Process::CpuUtilization() const
 {
 	//https://stackoverflow.com/questions/16726779/how-do-i-get-the-total-cpu-usage-of-an-application-from-proc-pid-stat/16736599#16736599
 	int pid = Pid();
