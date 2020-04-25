@@ -81,9 +81,6 @@ float LinuxParser::MemoryUtilization()
       linestream >> key >> value;
       if(key == kMemTotal){MemTotal = stof(value);}
       else if (key == kMemFree){MemFree = stof(value);}
-      else continue;
-      stream.close();
-      
     }
   }
     return (MemTotal - MemFree)/ MemTotal;
@@ -297,7 +294,8 @@ string LinuxParser::Ram(int pid)
       linestream >> key >> value;
       if(key == kProcessMemoryUsed)
       {
-        return to_string(stol(value)*0.001);
+        int ram_mb = value * 0.001;
+        return to_string(ram_mb);
       }
     }
   }
