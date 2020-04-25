@@ -294,7 +294,7 @@ string LinuxParser::Ram(int pid)
       linestream >> key >> value;
       if(key == kProcessMemoryUsed)
       {
-        int ram_mb = value * 0.001;
+        int ram_mb = stol(value) * 0.001;
         return to_string(ram_mb);
       }
     }

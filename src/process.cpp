@@ -97,7 +97,7 @@ long int Process::UpTime() {
 		uptime = LinuxParser::UpTime(pid);
 	}
 
-	return uptime;
+	return uptime/sysconf(_SC_CLK_TCK);
 }
 
 // TODO: Overload the "less than" comparison operator for Process objects
