@@ -130,14 +130,14 @@ long LinuxParser::ActiveJiffies(int pid)
   {
     std::getline(filestream, line);
     std::istringstream linestream(line);
-    while(linestream >> jiff)
+    
+    for(int i=1; i<=17; i++)
     {
-      if(counter >=14 && counter <=17)
+      linestream >> value;
+      if(i >=14 && i<=17)
       {
-        active_jiffies += stol(jiff);
+        active_jiffies += stol(value);
       }
-
-      counter++;
     }
   }
 
@@ -157,7 +157,9 @@ long LinuxParser::ActiveJiffies()
     kSystem_,
     kIRQ_,
     kSoftIRQ_,
-    kSteal_
+    kSteal_,
+    kGuest_,
+    kGuestNice_
   };
 
   vector<string> cpu_utilization = CpuUtilization();
@@ -205,17 +207,19 @@ vector<string> LinuxParser::CpuUtilization()
     std::getline(filestream, line);
     std::istringstream linestream(line);
 
-    linestream >> cpu >> user >> nice >> system >> idle >> iowait >> irq >> softirq >> steal;
+    linestream >> cpu >> user >> nice >> system >> idle >> iowait >> irq >> softirq >> steal >> guest >> guest_nice;
   }
 
-  cpu_utilization.emplace_back(std::move(user));
-  cpu_utilization.emplace_back(std::move(nice));
-  cpu_utilization.emplace_back(std::move(system));
-  cpu_utilization.emplace_back(std::move(idle));
-  cpu_utilization.emplace_back(std::move(iowait));
-  cpu_utilization.emplace_back(std::move(irq));
-  cpu_utilization.emplace_back(std::move(softirq));
-  cpu_utilization.emplace_back(std::move(steal));
+  cpu_utilization.push_back(user);
+  cpu_utilization.push_back(nice);
+  cpu_utilization.push_back(ssystem);
+  cpu_utilization.push_back(idle);
+  cpu_utilization.push_back(iowait);
+  cpu_utilization.push_back(irq);
+  cpu_utilization.push_back(softirq);
+  cpu_utilization.push_back(steal);
+  cpu_utilization.push_back(guest);
+  cpu_utilization.push_back(guest_nice);
 
   return cpu_utilization;
 
@@ -290,15 +294,10 @@ string LinuxParser::Ram(int pid)
   {
     while(std::getline(filestream, line))
     {
-      std::replace(line.begin(), line.end(), ' ', '_');
-      std::replace(line.begin(), line.end(), ':', ' ');
       std::istringstream linestream(line);
       linestream >> key >> value;
       if(key == kProcessMemoryUsed)
       {
-        std::replace(value.begin(), value.end(), '_', ' ');
-        std::istringstream valuestream(value);
-        valuestream >> value;
         return to_string(stol(value)*0.001);
       }
     }
@@ -318,15 +317,11 @@ string LinuxParser::Uid(int pid)
   {
     while(std::getline(filestream, line))
     {
-      std::replace(line.begin(), line.end(), ' ', '_');
-      std::replace(line.begin(), line.end(), ':', ' ');
       std::istringstream linestream(line);
       linestream >> key >> value;
       if(key == kProcessUid)
       {
-        std::replace(value.begin(), value.end(), '_', ' ');
-        std::istringstream valuestream(value);
-        valuestream >> uid;
+        uid = value;
       }
     }
   }
@@ -376,15 +371,13 @@ long int LinuxParser::UpTime(int pid)
   {
     std::getline(filestream, line);
     std::istringstream linestream(line);
-    while(linestream >> jiff)
+    for(int i=1; i<=22; i++)
     {
-      if(counter ==22)
+      linestream >> jiff;
+      if(i==22)
       {
         start_time = stol(jiff);
-        return start_time;
       }
-
-      counter++;
     }
   }
 

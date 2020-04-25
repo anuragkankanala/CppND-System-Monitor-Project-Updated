@@ -41,7 +41,7 @@ float Process::CpuUtilization() const
 
 		if(time_elapsed_process_start != 0)
 		{
-			cpu_usage = ((process_active_seconds)/(time_elapsed_process_start));
+			cpu_usage = 100.0*((process_active_seconds)/(time_elapsed_process_start));
 		}
 
 	}

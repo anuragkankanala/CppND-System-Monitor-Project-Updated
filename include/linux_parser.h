@@ -22,8 +22,8 @@ const std::string kMemTotal{"MemTotal:"};
 const std::string kMemAvailable{"MemAvailable:"};
 const std::string kTotalProcesses{"processes"};
 const std::string kProcessesRunning{"procs_running"};
-const std::string kProcessMemoryUsed{"VmSize"};
-const std::string kProcessUid{"Uid"};
+const std::string kProcessMemoryUsed{"VmSize:"};
+const std::string kProcessUid{"Uid:"};
 
 // System
 float MemoryUtilization();

@@ -10,10 +10,10 @@ using std::string;
 // REMOVE: [[maybe_unused]] once you define the function
 string Format::ElapsedTime(long seconds) 
 {
-	long seconds_remainder = seconds%60;
-	long minutes = seconds / 60;
-	long minutes_remainder = minutes%60;
-	long hours = minutes/60;
+	int seconds_remainder = seconds%60;
+	int minutes = seconds / 60;
+	int minutes_remainder = minutes%60;
+	int hours = seconds/3600;
 
 	string elapsed_time{""};
 	if(hours < 10)
