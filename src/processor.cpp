@@ -11,7 +11,7 @@ float Processor::Utilization()
 	long delta_total_jiffies = total_system_jiffies - prev_total_jiffies_;
 	if(delta_total_jiffies > 0)
 	{
-		utilization =  delta_active_jiffies/delta_total_jiffies;
+		utilization =  (1.0 * delta_active_jiffies)/delta_total_jiffies;
 	}
 	prev_active_jiffies_ = active_system_jiffies;
 	prev_total_jiffies_ = total_system_jiffies;

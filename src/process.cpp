@@ -30,18 +30,21 @@ float Process::CpuUtilization() const
 	if(pid > 0)
 	{
 		long process_active_jiffies{LinuxParser::ActiveJiffies(pid)};
-		long process_active_seconds = process_active_jiffies/sysconf(_SC_CLK_TCK);
+		float process_active_seconds = process_active_jiffies/sysconf(_SC_CLK_TCK);
 
 		long system_uptime_seconds{LinuxParser::UpTime()};
 
 		long process_uptime_jiffies{LinuxParser::UpTime(pid)};
 		long process_uptime_seconds = process_uptime_jiffies/sysconf(_SC_CLK_TCK);
 
-		long time_elapsed_process_start = system_uptime_seconds - process_uptime_seconds;
+		float time_elapsed_process_start = system_uptime_seconds - process_uptime_seconds;
 
-		if(time_elapsed_process_start != 0)
+		float delta_process_active_seconds = process_active_seconds - process_active_seconds_prev_;
+		float delta_time_elapsed_process_start = time_elapsed_process_start - time_elapsed_process_start_prev_;
+
+		if(delta_time_elapsed_process_start != 0)
 		{
-			cpu_usage = 100.0*((process_active_seconds)/(time_elapsed_process_start));
+			cpu_usage = 1.0*((delta_process_active_seconds)/(delta_time_elapsed_process_start));
 		}
 
 	}

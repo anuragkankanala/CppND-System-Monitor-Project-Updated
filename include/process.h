@@ -20,6 +20,8 @@ class Process {
   // TODO: Declare any necessary private members
  private:
  int pid_{-1};
+ float process_active_seconds_prev_{0.0f};
+ float time_elapsed_process_start_prev_{0.0f};
 };
 
 #endif
